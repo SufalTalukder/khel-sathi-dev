@@ -1,0 +1,1276 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+:root {
+    --ks-primary: #0284c7;
+    --ks-primary-dark: #0369a1;
+    --ks-primary-light: #e0f2fe;
+    --ks-secondary: #f97316;
+    --ks-success: #16a34a;
+    --ks-dark: #0f172a;
+    --ks-gray: #64748b;
+    --ks-border: #e2e8f0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Login Page Layout */
+.ks-login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+}
+
+.ks-main-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1rem 3.5rem;
+}
+
+.ks-login-grid {
+    width: 100%;
+    max-width: 1040px;
+    background: #ffffff;
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    display: flex;
+    overflow: hidden;
+    min-height: auto;
+}
+
+/* Left Brand Hero Sidebar */
+.ks-brand-sidebar {
+    flex: 1.05;
+    background: linear-gradient(160deg, #eff6ff 0%, #e0f2fe 45%, #fed7aa 100%);
+    padding: 2rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-right: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.ks-brand-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #f97316 0%, #0284c7 50%, #16a34a 100%);
+}
+
+.ks-brand-header {
+    text-align: center;
+}
+
+.ks-brand-logo {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    margin-bottom: 0.85rem;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.ks-brand-logo:hover {
+    transform: scale(1.05);
+}
+
+.ks-portal-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+}
+
+.ks-dept-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #15803d;
+    margin: 0 0 0.5rem;
+    line-height: 1.35;
+}
+
+.ks-dept-subtitle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0 auto;
+    max-width: 380px;
+    line-height: 1.4;
+}
+
+.ks-art-wrapper {
+    margin-top: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.ks-sports-art {
+    max-width: 100%;
+    max-height: 190px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.08));
+    transition: transform 0.4s ease;
+}
+
+.ks-sports-art:hover {
+    transform: translateY(-4px);
+}
+
+.ks-guidelines-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(2, 132, 199, 0.25);
+    border-radius: 9999px;
+    color: #0369a1;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 0.75rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.ks-guidelines-trigger:hover {
+    background: #ffffff;
+    color: #0284c7;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Right Login Form Column */
+.ks-form-column {
+    flex: 1;
+    padding: 2rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.ks-form-header {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.ks-badge-official {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.65rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+.ks-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #22c55e;
+}
+
+.ks-form-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.02em;
+}
+
+.ks-form-register-link {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.ks-form-register-link a {
+    color: #0284c7;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.ks-form-register-link a:hover {
+    color: #0369a1;
+    text-decoration: underline;
+}
+
+/* Inputs & Labels */
+.ks-form-group {
+    margin-bottom: 0.95rem;
+}
+
+.ks-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 0.35rem;
+}
+
+.ks-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ks-input-icon {
+    position: absolute;
+    left: 0.85rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    pointer-events: none;
+    transition: color 0.2s;
+}
+
+.ks-input {
+    width: 100%;
+    padding: 0.65rem 0.85rem 0.65rem 2.45rem;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.65rem;
+    font-size: 0.92rem;
+    color: #0f172a;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.ks-input:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.ks-input:focus + .ks-input-icon,
+.ks-input-wrapper:focus-within .ks-input-icon {
+    color: #0284c7;
+}
+
+.ks-toggle-pwd {
+    position: absolute;
+    right: 0.65rem;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0.35rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.375rem;
+    transition: color 0.2s;
+}
+
+.ks-toggle-pwd:hover {
+    color: #0f172a;
+}
+
+.ks-forgot-pwd {
+    text-align: right;
+    margin-top: -0.4rem;
+    margin-bottom: 0.85rem;
+}
+
+.ks-forgot-pwd a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0284c7;
+    text-decoration: none;
+}
+
+.ks-forgot-pwd a:hover {
+    text-decoration: underline;
+}
+
+/* Captcha Block */
+.ks-captcha-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.15rem;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.ks-captcha-badge {
+    flex: 1.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    padding: 0.45rem 0.65rem;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    user-select: none;
+}
+
+.ks-captcha-refresh {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    color: #475569;
+    width: 36px;
+    height: 36px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.ks-captcha-refresh:hover {
+    background: #f1f5f9;
+    color: #0284c7;
+    border-color: #0284c7;
+    transform: rotate(180deg);
+}
+
+.ks-captcha-input-box {
+    flex: 1;
+}
+
+.ks-captcha-input {
+    width: 100%;
+    padding: 0.45rem 0.65rem;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    color: #0f172a;
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+.ks-captcha-input:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Submit Button */
+.ks-submit-btn {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.65rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35);
+}
+
+.ks-submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -2px rgba(2, 132, 199, 0.45);
+}
+
+.ks-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.ks-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Alerts */
+.ks-alert {
+    padding: 0.75rem 1rem;
+    border-radius: 0.65rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: ksSlideIn 0.3s ease;
+}
+
+.ks-alert-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.ks-alert-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+@keyframes ksSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer - Floating / Fixed at Bottom */
+.ks-footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0;
+    right: 0;
+    height: auto !important;
+    text-align: center;
+    padding: 0.65rem 1rem !important;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(226, 232, 240, 0.85);
+    color: #64748b;
+    font-size: 0.8rem;
+    font-weight: 500;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+    z-index: 1020;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .ks-login-grid {
+        flex-direction: column;
+        max-width: 580px;
+        min-height: auto;
+    }
+
+    .ks-brand-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 2rem 1.5rem;
+    }
+
+    .ks-form-column {
+        padding: 2.25rem 1.75rem;
+    }
+
+    .ks-sports-art {
+        max-height: 180px;
+    }
+}
+
+/* Floating Toastr Popup Notification System */
+.ks-toastr-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999999 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+    max-width: 420px;
+    width: 90%;
+}
+
+.ks-toastr-item {
+    pointer-events: all;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15);
+    animation: ksToastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.ks-toastr-item.error {
+    background: #dc2626;
+    border-left: 6px solid #991b1b;
+}
+
+.ks-toastr-item.success {
+    background: #16a34a;
+    border-left: 6px solid #14532d;
+}
+
+.ks-toastr-item.warning {
+    background: #d97706;
+    border-left: 6px solid #78350f;
+}
+
+.ks-toastr-item.info {
+    background: #0284c7;
+    border-left: 6px solid #0c4a6e;
+}
+
+.ks-toastr-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.ks-toastr-content {
+    flex: 1;
+}
+
+.ks-toastr-title {
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin: 0 0 3px 0;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+}
+
+.ks-toastr-msg {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.45;
+    color: #f8fafc;
+}
+
+.ks-toastr-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.3rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    margin-left: 6px;
+    transition: color 0.2s;
+}
+
+.ks-toastr-close:hover {
+    color: #ffffff;
+}
+
+.ks-toastr-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3.5px;
+    background: rgba(255, 255, 255, 0.45);
+    animation: ksToastProgress 4.5s linear forwards;
+}
+
+@keyframes ksToastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes ksToastProgress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* ==========================================================================
+   ULTRA-PROFESSIONAL EXECUTIVE ADMIN PORTAL DESIGN SYSTEM
+   Department of Sports, Government of Uttar Pradesh
+   ========================================================================== */
+
+/* Layout Base */
+.ks-admin-body {
+    background-color: #f1f5f9;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.04) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(249, 115, 22, 0.03) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, sans-serif;
+    color: #1e293b;
+}
+
+/* Sidebar Styles */
+.ks-modern-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    z-index: 1040;
+    background: #0b1329;
+    background: linear-gradient(180deg, #0b1329 0%, #0f172a 100%);
+    box-shadow: 4px 0 24px -2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), width 0.28s ease;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.ks-modern-sidebar.closed {
+    transform: translateX(-270px);
+}
+
+/* Sidebar Header Brand */
+.ks-sidebar-header {
+    padding: 1.25rem 1.15rem 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.ks-sidebar-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    flex-shrink: 0;
+}
+
+.ks-sidebar-brand-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.ks-sidebar-brand-sub {
+    font-size: 0.72rem;
+    color: #38bdf8;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Sidebar User Status Pill */
+.ks-sidebar-user-pill {
+    margin: 0.85rem 1rem 0.5rem;
+    padding: 0.75rem 0.85rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ks-user-avatar-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 0.65rem;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+.ks-user-info-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.ks-user-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+.ks-user-status-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.ks-user-status-dot::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #22c55e;
+}
+
+/* Sidebar Scroll Area & Nav Items */
+.ks-sidebar-nav-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0.85rem 1rem;
+}
+
+.ks-sidebar-nav-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.ks-sidebar-nav-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+
+.ks-nav-group-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.75rem 0.75rem 0.35rem;
+}
+
+.ks-nav-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.75rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 3px;
+}
+
+.ks-nav-item-btn:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    transform: translateX(3px);
+}
+
+.ks-nav-item-btn.active {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 16px -2px rgba(2, 132, 199, 0.45);
+}
+
+.ks-nav-icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    color: #38bdf8;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.ks-nav-item-btn.active .ks-nav-icon-box {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.ks-submenu-tree {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0.25rem 0 0.5rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    margin-left: 1.25rem;
+}
+
+.ks-submenu-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.ks-submenu-link:hover {
+    color: #38bdf8;
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 0.85rem;
+}
+
+/* Sidebar Footer Logout */
+.ks-sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.ks-sidebar-logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: 0.75rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.ks-sidebar-logout-btn:hover {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+    transform: translateY(-1px);
+}
+
+/* Modern Header Navbar */
+.ks-modern-header {
+    height: 68px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 270px;
+    z-index: 1030;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.75rem;
+    transition: left 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ks-modern-header.fullwidth {
+    left: 0;
+}
+
+.ks-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.65rem;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.ks-toggle-btn:hover {
+    background: #f1f5f9;
+    color: #0284c7;
+    border-color: #0284c7;
+    transform: scale(1.05);
+}
+
+.ks-header-badge-official {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.85rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.ks-header-badge-official::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+.ks-header-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.35rem 0.75rem 0.35rem 0.35rem;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ks-header-profile-btn:hover {
+    background: #ffffff;
+    border-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+
+/* Modern Profile Dropdown Menu */
+.ks-profile-dropdown-card {
+    position: absolute;
+    right: 1.5rem;
+    top: 72px;
+    z-index: 1050;
+    width: 290px;
+    background: #ffffff;
+    border-radius: 1rem;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(226, 232, 240, 0.5);
+    overflow: hidden;
+    animation: ksSlideIn 0.25s ease;
+}
+
+/* Main Content Area */
+.ks-admin-content {
+    margin-left: 270px;
+    min-height: 100vh;
+    padding: 86px 28px 72px;
+    transition: margin-left 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.ks-admin-content.fullwidth {
+    margin-left: 0;
+}
+
+/* ==========================================================================
+   Professional Clean Admin Dashboard System (Normal & Enterprise)
+   ========================================================================== */
+
+/* Page Header */
+.ks-dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.ks-dash-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+}
+
+.ks-dash-subtitle {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* Professional Compact Metric Cards */
+.ks-metric-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.65rem 0.85rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: all 0.18s ease-in-out;
+    height: 100%;
+}
+
+.ks-metric-card:hover {
+    border-color: #0284c7;
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.07);
+    transform: translateY(-1px);
+}
+
+.ks-metric-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.ks-metric-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.ks-metric-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
+}
+
+.ks-metric-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #475569;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.ks-metric-hindi {
+    font-size: 0.68rem;
+    color: #94a3b8;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Subtle, Tasteful Icon Accents */
+.ks-icon-blue { background: #e0f2fe; color: #0284c7; }
+.ks-icon-indigo { background: #eef2ff; color: #4f46e5; }
+.ks-icon-purple { background: #f3e8ff; color: #7e22ce; }
+.ks-icon-amber { background: #fef3c7; color: #b45309; }
+.ks-icon-rose { background: #ffe4e6; color: #be123c; }
+.ks-icon-emerald { background: #dcfce7; color: #15803d; }
+.ks-icon-teal { background: #ccfbf1; color: #0f766e; }
+.ks-icon-orange { background: #ffedd5; color: #c2410c; }
+
+/* Professional Data Table Card */
+.ks-data-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.ks-data-card-header {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.ks-data-card-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ks-table-search-input {
+    padding: 0.45rem 0.75rem 0.45rem 2rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #1e293b;
+    width: 220px;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.ks-table-search-input:focus {
+    outline: none;
+    border-color: #0284c7;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+.ks-table-pro {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+.ks-table-pro thead,
+.ks-table-pro #dataTable thead {
+    background: #f8fafc !important;
+}
+
+.ks-table-pro thead th,
+.ks-table-pro #dataTable thead th {
+    background: #f8fafc !important;
+    color: #475569 !important;
+    font-size: 0.74rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    border-top: none !important;
+}
+
+.ks-table-pro tbody td {
+    padding: 0.75rem 1rem !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    font-size: 0.85rem !important;
+}
+
+.ks-table-pro tbody tr:hover {
+    background-color: #f8fafc !important;
+}
+
+/* Crisp Tabular Numbers & Badges */
+.ks-num-link {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #0284c7;
+}
+
+.ks-num-link:hover {
+    text-decoration: underline;
+    color: #0369a1;
+}
+
+.ks-badge-pending {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 4px;
+    background: #fef3c7;
+    color: #b45309;
+    text-decoration: none;
+}
+
+.ks-badge-pending:hover {
+    background: #fde68a;
+    color: #92400e;
+}
+
+.ks-badge-accepted {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 4px;
+    background: #dcfce7;
+    color: #15803d;
+    text-decoration: none;
+}
+
+.ks-badge-accepted:hover {
+    background: #bbf7d0;
+    color: #166534;
+}
+
+.ks-badge-rejected {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 4px;
+    background: #fee2e2;
+    color: #b91c1c;
+    text-decoration: none;
+}
+
+.ks-badge-rejected:hover {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+.ks-num-zero {
+    color: #94a3b8;
+    font-weight: 400;
+    font-size: 0.82rem;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .ks-modern-sidebar {
+        transform: translateX(-270px);
+    }
+    .ks-modern-sidebar.open {
+        transform: translateX(0);
+    }
+    .ks-modern-header {
+        left: 0 !important;
+    }
+    .ks-admin-content {
+        margin-left: 0 !important;
+        padding: 82px 16px 72px;
+    }
+    .ks-footer {
+        left: 0 !important;
+    }
+}
+

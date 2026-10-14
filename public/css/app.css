@@ -1,0 +1,494 @@
+@import url(https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap);
+:root {
+    --ks-primary: #0284c7;
+    --ks-primary-dark: #0369a1;
+    --ks-primary-light: #e0f2fe;
+    --ks-secondary: #f97316;
+    --ks-success: #16a34a;
+    --ks-dark: #0f172a;
+    --ks-gray: #64748b;
+    --ks-border: #e2e8f0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Login Page Layout */
+.ks-login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+}
+
+.ks-main-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+}
+
+.ks-login-grid {
+    width: 100%;
+    max-width: 1140px;
+    background: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    display: flex;
+    overflow: hidden;
+    min-height: 640px;
+}
+
+/* Left Brand Hero Sidebar */
+.ks-brand-sidebar {
+    flex: 1.1;
+    background: linear-gradient(160deg, #eff6ff 0%, #e0f2fe 45%, #fed7aa 100%);
+    padding: 2.75rem 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-right: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.ks-brand-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #f97316 0%, #0284c7 50%, #16a34a 100%);
+}
+
+.ks-brand-header {
+    text-align: center;
+}
+
+.ks-brand-logo {
+    width: 90px;
+    height: 90px;
+    -o-object-fit: contain;
+       object-fit: contain;
+    margin-bottom: 1.25rem;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+    transition: transform 0.3s ease;
+}
+
+.ks-brand-logo:hover {
+    transform: scale(1.05);
+}
+
+.ks-portal-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+}
+
+.ks-dept-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #15803d;
+    margin: 0 0 0.75rem;
+    line-height: 1.4;
+}
+
+.ks-dept-subtitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0 auto;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.ks-art-wrapper {
+    margin-top: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.ks-sports-art {
+    max-width: 100%;
+    max-height: 240px;
+    -o-object-fit: contain;
+       object-fit: contain;
+    filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.1));
+    transition: transform 0.4s ease;
+}
+
+.ks-sports-art:hover {
+    transform: translateY(-4px);
+}
+
+.ks-guidelines-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.15rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(2, 132, 199, 0.25);
+    border-radius: 9999px;
+    color: #0369a1;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ks-guidelines-trigger:hover {
+    background: #ffffff;
+    color: #0284c7;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Right Login Form Column */
+.ks-form-column {
+    flex: 1;
+    padding: 2.75rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.ks-form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.ks-badge-official {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+.ks-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #22c55e;
+}
+
+.ks-form-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.ks-form-register-link {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.ks-form-register-link a {
+    color: #0284c7;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.ks-form-register-link a:hover {
+    color: #0369a1;
+    text-decoration: underline;
+}
+
+/* Inputs & Labels */
+.ks-form-group {
+    margin-bottom: 1.35rem;
+}
+
+.ks-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 0.4rem;
+}
+
+.ks-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ks-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: color 0.2s;
+}
+
+.ks-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.65rem;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    color: #0f172a;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.ks-input:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+}
+
+.ks-input:focus + .ks-input-icon,
+.ks-input-wrapper:focus-within .ks-input-icon {
+    color: #0284c7;
+}
+
+.ks-toggle-pwd {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0.4rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.375rem;
+    transition: color 0.2s;
+}
+
+.ks-toggle-pwd:hover {
+    color: #0f172a;
+}
+
+.ks-forgot-pwd {
+    text-align: right;
+    margin-top: -0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.ks-forgot-pwd a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0284c7;
+    text-decoration: none;
+}
+
+.ks-forgot-pwd a:hover {
+    text-decoration: underline;
+}
+
+/* Captcha Block */
+.ks-captcha-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 0.85rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.ks-captcha-badge {
+    flex: 1.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.6rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+}
+
+.ks-captcha-refresh {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    color: #475569;
+    width: 38px;
+    height: 38px;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.ks-captcha-refresh:hover {
+    background: #f1f5f9;
+    color: #0284c7;
+    border-color: #0284c7;
+    transform: rotate(180deg);
+}
+
+.ks-captcha-input-box {
+    flex: 1;
+}
+
+.ks-captcha-input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    color: #0f172a;
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+.ks-captcha-input:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Submit Button */
+.ks-submit-btn {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 20px -2px rgba(2, 132, 199, 0.4);
+}
+
+.ks-submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -2px rgba(2, 132, 199, 0.5);
+}
+
+.ks-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.ks-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Alerts */
+.ks-alert {
+    padding: 0.75rem 1rem;
+    border-radius: 0.65rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: ksSlideIn 0.3s ease;
+}
+
+.ks-alert-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.ks-alert-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+@keyframes ksSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer */
+.ks-footer {
+    text-align: center;
+    padding: 1.25rem 1rem;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .ks-login-grid {
+        flex-direction: column;
+        max-width: 580px;
+        min-height: auto;
+    }
+
+    .ks-brand-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 2rem 1.5rem;
+    }
+
+    .ks-form-column {
+        padding: 2.25rem 1.75rem;
+    }
+
+    .ks-sports-art {
+        max-height: 180px;
+    }
+}
+
