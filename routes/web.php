@@ -649,13 +649,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['IsAdmin']], function () {
     /**
      * Admin Module Manager Route
      */
-
-    Route::any('module_manager',    [ModuleManager::class, 'index'])->name('moduleCreate')->middleware('IsMapping');
-    Route::any('add-new-module',    [ModuleManager::class, 'moduleForm'])->name('moduleForm');
-    Route::any('createModule',      [ModuleManager::class, 'createModule'])->name('createModule');
-    Route::get('moduleStatus/{id}', [ModuleManager::class, 'moduleStatus']);
-    Route::any('editModule/{id}',   [ModuleManager::class, 'editModule'])->name('editModule');
-    Route::any('updateModule/{id}', [ModuleManager::class, 'updateModule'])->name('updateModule');
+    // Legacy redirects to new khelsathi-department module manager
+    Route::any('module_manager', function () {
+        return redirect()->route('moduleCreate');
+    });
+    Route::any('module-manager', function () {
+        return redirect()->route('moduleCreate');
+    });
+    Route::any('add-new-module', function () {
+        return redirect()->route('moduleCreate');
+    });
 
     /**
      * Admin Menu Manage Route
@@ -1985,6 +1988,17 @@ Route::group(['prefix' => 'khelsathi-department'], function () {
 // Dashboard & Authenticated Routes
 Route::group(['prefix' => 'khelsathi-department', 'middleware' => ['IsAdmin']], function () {
     Route::get('/dashboard', [AdminDashboard::class, 'dashboard'])->name('khelsathi.dashboard')->middleware('StopScriptTags');
+
+    // User Management -> Module Manager
+    Route::any('/module-manager', [ModuleManager::class, 'index'])->name('moduleCreate')->middleware('IsMapping');
+    Route::any('/add-new-module', [ModuleManager::class, 'moduleForm'])->name('moduleForm');
+    Route::any('/createModule', [ModuleManager::class, 'createModule'])->name('createModule');
+    Route::any('/create-module', [ModuleManager::class, 'createModule']);
+    Route::get('/module-status/{id}', [ModuleManager::class, 'moduleStatus'])->name('moduleStatus');
+    Route::any('/edit-module/{id}', [ModuleManager::class, 'editModule'])->name('editModule');
+    Route::any('/update-module/{id}', [ModuleManager::class, 'updateModule'])->name('updateModule');
+    Route::delete('/delete-module/{id}', [ModuleManager::class, 'deleteModule'])->name('deleteModule');
+
 
     // Logout Route
     Route::get('/logout', [Adminathentication::class, 'signOuts'])->name('khelsathi.logout');

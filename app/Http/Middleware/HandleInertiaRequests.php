@@ -61,6 +61,60 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error'),
                 'message' => fn () => $request->session()->get('message'),
             ],
+            'menu' => function () use ($admin) {
+                if (!$admin) return [];
+                $userId = $admin->id;
+                $modules = \Illuminate\Support\Facades\DB::table('urm_module_manager')
+                    ->where('is_menu', '=', 1)
+                    ->where('module_status', '=', 1)
+                    ->orderBy('menu_order', 'ASC')
+                    ->get();
+                $menu = [];
+                foreach ($modules as $module) {
+                    $roleModules = \Illuminate\Support\Facades\DB::table('urm_role_module_mapping')
+                        ->join('urm_page_manager', 'urm_role_module_mapping.page_id', '=', 'urm_page_manager.id')
+                        ->where('urm_role_module_mapping.user_id', $userId)
+                        ->where('urm_page_manager.module_id', '=', $module->id)
+                        ->orderBy('urm_page_manager.page_order', 'ASC')
+                        ->groupBy('urm_page_manager.id')
+                        ->get();
+                    if ($roleModules && count($roleModules) > 0) {
+                        $pages = [];
+                        foreach ($roleModules as $roleModule) {
+                            $p = \Illuminate\Support\Facades\DB::table('urm_page_manager')
+                                ->where('page_status', '=', 1)
+                                ->where('is_menu', '=', 1)
+                                ->where('id', $roleModule->page_id)
+                                ->orderBy('page_order', 'ASC')
+                                ->first();
+                            if ($p) {
+                                $pageUrl = $p->page_url;
+                                if ($p->page_name === 'Module Manager' || strpos($pageUrl, 'module_manager') !== false || strpos($pageUrl, 'module-manager') !== false) {
+                                    $pageUrl = '/khelsathi-department/module-manager';
+                                } else {
+                                    $pageUrl = str_starts_with($pageUrl, 'http') ? $pageUrl : ('/' . ltrim($pageUrl, '/'));
+                                }
+                                $pages[] = [
+                                    'id' => $p->id,
+                                    'page_name' => function_exists('repairHindi') ? repairHindi($p->page_name) : $p->page_name,
+                                    'page_url' => $pageUrl,
+                                    'menu_icon' => $p->menu_icon,
+                                ];
+                            }
+                        }
+                        if (!empty($pages)) {
+                            $menu[] = [
+                                'id' => $module->id,
+                                'module_name' => function_exists('repairHindi') ? repairHindi($module->module_name) : $module->module_name,
+                                'module_url' => $module->module_url,
+                                'menu_icon' => $module->menu_icon,
+                                'pages' => $pages,
+                            ];
+                        }
+                    }
+                }
+                return $menu;
+            },
         ]);
     }
 }

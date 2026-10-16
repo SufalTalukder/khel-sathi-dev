@@ -2,12 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 
 export default function AdminLayout({ children, menu: propMenu, routes: propRoutes }) {
-    const { auth } = usePage().props;
+    const { auth, menu: sharedMenu } = usePage().props;
+    const { url } = usePage();
     const admin = auth?.admin;
 
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [profileOpen, setProfileOpen] = useState(false);
     const [expandedMenus, setExpandedMenus] = useState({});
+
+    const menuItems = (propMenu && propMenu.length > 0) ? propMenu : (sharedMenu || []);
+
+    // Check if a page URL matches current active URL
+    const isUrlActive = (pageUrl) => {
+        if (!pageUrl) return false;
+        let cleanPageUrl = pageUrl;
+        try {
+            if (cleanPageUrl.startsWith('http://') || cleanPageUrl.startsWith('https://')) {
+                cleanPageUrl = new URL(cleanPageUrl).pathname;
+            }
+        } catch (e) { }
+
+        const normPage = cleanPageUrl.replace(/^\/+|\/+$/g, '').toLowerCase();
+        const currentPath = (url || (typeof window !== 'undefined' ? window.location.pathname : ''))
+            .split('?')[0]
+            .replace(/^\/+|\/+$/g, '')
+            .toLowerCase();
+
+        if (!normPage || !currentPath) return false;
+        if (normPage === currentPath) return true;
+        if (currentPath.includes('module-manager') && (normPage.includes('module-manager') || normPage.includes('module_manager'))) {
+            return true;
+        }
+        return currentPath.endsWith(normPage) || normPage.endsWith(currentPath);
+    };
+
+    // Auto-expand parent module if current URL matches one of its pages
+    useEffect(() => {
+        menuItems.forEach((mod) => {
+            if (mod.pages && mod.pages.some((p) => isUrlActive(p.page_url))) {
+                setExpandedMenus((prev) => ({ ...prev, [mod.id]: true }));
+            }
+        });
+    }, [menuItems, url]);
 
     // Toggle menu dropdown
     const toggleSubmenu = (menuId) => {
@@ -75,7 +111,6 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
         ? admin.username.replace(/_/g, ' ')
         : 'Admin';
 
-    const menuItems = propMenu || [];
 
     // Current formatted date for top bar
     const currentDateFormatted = new Date().toLocaleDateString('en-IN', {
@@ -235,18 +270,23 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
                 <div className="ks-sidebar-nav-scroll">
                     <div className="ks-nav-group-label">Core Navigation</div>
 
-                    <Link
-                        href="/khelsathi-department/dashboard"
-                        className="ks-nav-item-btn active"
-                    >
-                        <div className="d-flex align-items-center">
-                            <span className="ks-nav-icon-box">
-                                <i className="fa fa-th-large"></i>
-                            </span>
-                            <span>Dashboard</span>
-                        </div>
-                        <i className="fa fa-angle-right" style={{ fontSize: '0.8rem', opacity: 0.7 }}></i>
-                    </Link>
+                    {(() => {
+                        const isDashboard = (url || '').includes('/dashboard');
+                        return (
+                            <Link
+                                href="/khelsathi-department/dashboard"
+                                className={`ks-nav-item-btn ${isDashboard ? 'active' : ''}`}
+                            >
+                                <div className="d-flex align-items-center">
+                                    <span className="ks-nav-icon-box">
+                                        <i className="fa fa-th-large"></i>
+                                    </span>
+                                    <span>Dashboard</span>
+                                </div>
+                                <i className="fa fa-angle-right" style={{ fontSize: '0.8rem', opacity: 0.7 }}></i>
+                            </Link>
+                        );
+                    })()}
 
                     <div className="ks-nav-group-label mt-2">Department Modules</div>
 
@@ -255,13 +295,14 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
                         const isExpanded = !!expandedMenus[module.id];
                         const iconClass = getModuleIcon(module.module_name, module.menu_icon);
                         const hasPages = module.pages && module.pages.length > 0;
+                        const hasActiveChild = module.pages && module.pages.some((p) => isUrlActive(p.page_url));
 
                         return (
                             <div key={module.id} className="mb-1">
                                 <button
                                     type="button"
                                     onClick={() => toggleSubmenu(module.id)}
-                                    className={`ks-nav-item-btn ${isExpanded ? 'bg-white-10 text-white' : ''}`}
+                                    className={`ks-nav-item-btn ${isExpanded ? 'bg-white-10 text-white' : ''} ${hasActiveChild ? 'has-active-child' : ''}`}
                                 >
                                     <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
                                         <span className="ks-nav-icon-box">
@@ -281,18 +322,28 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
 
                                 {isExpanded && hasPages && (
                                     <ul className="ks-submenu-tree">
-                                        {module.pages.map((page) => (
-                                            <li key={page.id} className="mb-1">
-                                                <a
-                                                    href={page.page_url}
-                                                    className="ks-submenu-link"
-                                                    title={page.page_name}
-                                                >
-                                                    <i className="fa fa-circle-o" style={{ fontSize: '0.55rem', opacity: 0.7 }}></i>
-                                                    <span className="text-truncate">{page.page_name}</span>
-                                                </a>
-                                            </li>
-                                        ))}
+                                        {module.pages.map((page) => {
+                                            const isPageActive = isUrlActive(page.page_url);
+
+                                            return (
+                                                <li key={page.id} className="mb-1">
+                                                    <Link
+                                                        href={page.page_url}
+                                                        className={`ks-submenu-link ${isPageActive ? 'active' : ''}`}
+                                                        title={page.page_name}
+                                                    >
+                                                        <i
+                                                            className={`fa ${isPageActive ? 'fa-dot-circle-o text-info' : 'fa-circle-o'}`}
+                                                            style={{ fontSize: '0.62rem', opacity: isPageActive ? 1 : 0.6 }}
+                                                        ></i>
+                                                        <span className="text-truncate">{page.page_name}</span>
+                                                        {isPageActive && (
+                                                            <span className="ms-auto ks-active-bullet" title="Current Active Page"></span>
+                                                        )}
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
                                 )}
                             </div>
@@ -318,8 +369,8 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
                     {children}
                 </div>
 
-                {/* Global Official Floating Footer */}
-                <div
+                {/* Global Official Government Footer */}
+                <footer
                     className="ks-footer"
                     role="contentinfo"
                     style={{
@@ -327,17 +378,26 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
                         transition: 'left 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
                     }}
                 >
-                    <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 px-3">
-                        <div style={{ fontSize: '0.8rem', fontWeight: 500 }}>
-                            Copyright &copy; {new Date().getFullYear()} Department of Sports, Government of Uttar Pradesh / खेल विभाग, उत्तर प्रदेश सरकार. All Rights Reserved.
+                    <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between gap-2 px-3">
+                        <div className="d-flex align-items-center gap-2 text-center text-lg-start flex-wrap">
+                            <span className="fw-bold" style={{ color: '#0c2340', fontSize: '0.78rem' }}>
+                                Department of Sports, Government of Uttar Pradesh / खेल विभाग, उत्तर प्रदेश सरकार
+                            </span>
+                            <span className="text-muted d-none d-md-inline">•</span>
+                            <span className="text-muted" style={{ fontSize: '0.74rem' }}>
+                                Content Owned and Maintained by Directorate of Sports, UP
+                            </span>
                         </div>
-                        <div className="d-flex align-items-center gap-2 text-muted" style={{ fontSize: '0.75rem' }}>
-                            <span className="badge bg-success-subtle text-success fw-bold px-2 py-1 rounded-pill">
-                                <i className="fa fa-shield me-1"></i> Official Portal
+                        <div className="d-flex align-items-center gap-3 text-muted flex-wrap justify-content-center" style={{ fontSize: '0.74rem' }}>
+                            <span className="d-none d-xl-inline">
+                                <i className="fa fa-universal-access me-1 text-primary"></i> GIGW Compliant
+                            </span>
+                            <span className="badge bg-success-subtle text-success border border-success-subtle fw-bold px-2 py-1 rounded-pill">
+                                <i className="fa fa-shield me-1"></i> Official Portal • &copy; {new Date().getFullYear()}
                             </span>
                         </div>
                     </div>
-                </div>
+                </footer>
             </main>
         </div>
     );

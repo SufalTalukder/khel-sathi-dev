@@ -23,8 +23,11 @@ export default function Dashboard(props) {
         routes = {},
     } = props;
 
-    // Search filter for summary table
+    // Search and pagination state for summary table (default 10 rows per page)
     const [tableSearch, setTableSearch] = useState('');
+    const [pageSize, setPageSize] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [statusFilter, setStatusFilter] = useState('all');
 
     // Broadcast Modal State
     const [showBroadcastModal, setShowBroadcastModal] = useState(broadcast_list && broadcast_list.length > 0);
@@ -110,7 +113,7 @@ export default function Dashboard(props) {
                         body { font-family: 'Segoe UI', Arial, sans-serif; padding: 25px; color: #1e293b; }
                         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
                         table tr th, table tr td { border: 1px solid #cbd5e1; padding: 8px 12px; font-size: 13px; }
-                        th { background-color: #f8fafc; text-align: left; font-weight: 700; color: #334155; }
+                        th { background-color: #0c2340; text-align: left; font-weight: 700; color: #ffffff; }
                         td.text-center, th.text-center { text-align: center; }
                         a { text-decoration: none; color: #0284c7; font-weight: 700; }
                         .print-header { text-align: center; border-bottom: 2px solid #0284c7; padding-bottom: 12px; margin-bottom: 20px; }
@@ -127,6 +130,36 @@ export default function Dashboard(props) {
             </html>
         `);
         popupWin.document.close();
+    };
+
+    // Export Excel handler (.csv with UTF-8 BOM)
+    const handleExportExcel = () => {
+        const headers = ['#', 'Module Name', 'Hindi Name', 'Total Received', 'Forwarded', 'Pending', 'Accepted', 'Rejected'];
+        const rowsToExport = filteredRows.map((r, idx) => [
+            idx + 1,
+            `"${(r.name || '').replace(/"/g, '""')}"`,
+            `"${(r.hindi || '').replace(/"/g, '""')}"`,
+            r.total || 0,
+            r.forwarded || 0,
+            r.pending || 0,
+            r.accepted || 0,
+            r.rejected || 0,
+        ]);
+        const csvContent = [headers.join(','), ...rowsToExport.map((row) => row.join(','))].join('\r\n');
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `Khel_Sathi_Module_Summary_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
+    // Export PDF handler
+    const handleExportPDF = () => {
+        handlePrint();
     };
 
     // View broadcast detail handler
@@ -479,11 +512,16 @@ export default function Dashboard(props) {
         },
     ];
 
-    // Filter visible summary rows based on search
+    // Filter visible summary rows based on search and status
     const filteredRows = useMemo(() => {
         return summaryRows
             .filter((row) => row.visible)
             .filter((row) => {
+                if (statusFilter === 'pending' && (!row.pending || row.pending <= 0)) return false;
+                if (statusFilter === 'forwarded' && (!row.forwarded || row.forwarded <= 0)) return false;
+                if (statusFilter === 'accepted' && (!row.accepted || row.accepted <= 0)) return false;
+                if (statusFilter === 'rejected' && (!row.rejected || row.rejected <= 0)) return false;
+
                 if (!tableSearch.trim()) return true;
                 const query = tableSearch.toLowerCase();
                 return (
@@ -491,7 +529,13 @@ export default function Dashboard(props) {
                     (row.hindi && row.hindi.toLowerCase().includes(query))
                 );
             });
-    }, [summaryRows, tableSearch]);
+    }, [summaryRows, tableSearch, statusFilter]);
+
+    const totalPages = Math.ceil(filteredRows.length / pageSize) || 1;
+    const paginatedRows = useMemo(() => {
+        const start = (currentPage - 1) * pageSize;
+        return filteredRows.slice(start, start + pageSize);
+    }, [filteredRows, currentPage, pageSize]);
 
     const activeKpiCards = kpiCards.filter((card) => card.visible);
 
@@ -543,10 +587,10 @@ export default function Dashboard(props) {
                 ))}
             </div>
 
-            {/* Professional Data Table Card */}
+            {/* Professional Standardized Data Table Card */}
             <div className="ks-data-card">
-                <div className="ks-data-card-header">
-                    <h5 className="ks-data-card-title">
+                <div className="ks-data-card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <h5 className="ks-data-card-title mb-0">
                         <i className="fa fa-list-alt text-primary"></i>
                         <span>Module Summary Overview</span>
                         <span className="badge bg-light text-muted border ms-1" style={{ fontSize: '0.72rem' }}>
@@ -554,32 +598,133 @@ export default function Dashboard(props) {
                         </span>
                     </h5>
 
-                    <div className="d-flex align-items-center gap-2">
-                        {/* Live Filter Search */}
-                        <div className="position-relative">
-                            <i
-                                className="fa fa-search position-absolute text-muted"
-                                style={{ left: '10px', top: '50%', transform: 'translateY(-50%)', fontSize: '0.75rem' }}
-                            ></i>
-                            <input
-                                type="text"
-                                className="ks-table-search-input"
-                                placeholder="Filter modules..."
-                                value={tableSearch}
-                                onChange={(e) => setTableSearch(e.target.value)}
-                            />
-                        </div>
-
-                        {/* Print Button */}
+                    {/* Top Toolbar: Excel and PDF Export Buttons */}
+                    <div className="d-flex align-items-center gap-2 flex-wrap">
                         <button
                             type="button"
-                            className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 fw-semibold"
+                            onClick={handleExportExcel}
+                            className="btn btn-outline-success btn-sm d-flex align-items-center gap-2 px-3 py-1-5 shadow-sm rounded-2 fw-semibold"
+                            style={{ fontSize: '0.8rem' }}
+                            title="Export summary to Excel (.csv)"
+                        >
+                            <i className="fa fa-file-excel-o"></i>
+                            <span>Excel</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleExportPDF}
+                            className="btn btn-outline-danger btn-sm d-flex align-items-center gap-2 px-3 py-1-5 shadow-sm rounded-2 fw-semibold"
+                            style={{ fontSize: '0.8rem' }}
+                            title="Print / Save official PDF report"
+                        >
+                            <i className="fa fa-file-pdf-o"></i>
+                            <span>PDF</span>
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 py-1-5 shadow-sm rounded-2 fw-semibold"
+                            style={{ fontSize: '0.8rem' }}
                             onClick={handlePrint}
                             title="Print Table"
                         >
                             <i className="fa fa-print"></i>
                             <span>Print</span>
                         </button>
+                    </div>
+                </div>
+
+                {/* Standardized Table Filter Strip */}
+                <div className="ks-crud-header">
+                    {/* Top-Left: Rows-per-page Dropdown (defaulting to 10) */}
+                    <div className="d-flex align-items-center gap-2">
+                        <span className="text-muted" style={{ fontSize: '0.82rem', fontWeight: 600 }}>Show</span>
+                        <select
+                            className="form-select form-select-sm"
+                            style={{ width: '80px', fontSize: '0.82rem' }}
+                            value={pageSize}
+                            onChange={(e) => {
+                                setPageSize(Number(e.target.value));
+                                setCurrentPage(1);
+                            }}
+                            aria-label="Rows per page"
+                        >
+                            <option value={10}>10</option>
+                            <option value={25}>25</option>
+                            <option value={50}>50</option>
+                            <option value={100}>100</option>
+                        </select>
+                        <span className="text-muted" style={{ fontSize: '0.82rem', fontWeight: 600 }}>entries</span>
+                    </div>
+
+                    {/* Top-Right: Search Field and Status Filter */}
+                    <div className="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+                        {/* Status Filter */}
+                        <div className="d-flex align-items-center gap-1">
+                            <span className="text-muted" style={{ fontSize: '0.78rem', fontWeight: 600 }}>Status:</span>
+                            <select
+                                className="form-select form-select-sm"
+                                style={{ fontSize: '0.8rem', width: '135px' }}
+                                value={statusFilter}
+                                onChange={(e) => {
+                                    setStatusFilter(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                            >
+                                <option value="all">All Modules</option>
+                                <option value="pending">With Pending</option>
+                                <option value="forwarded">With Forwarded</option>
+                                <option value="accepted">With Accepted</option>
+                                <option value="rejected">With Rejected</option>
+                            </select>
+                        </div>
+
+                        {/* Search Input */}
+                        <div className="position-relative" style={{ width: '220px' }}>
+                            <i
+                                className="fa fa-search position-absolute text-muted"
+                                style={{ left: '10px', top: '50%', transform: 'translateY(-50%)', fontSize: '0.8rem' }}
+                            ></i>
+                            <input
+                                type="text"
+                                className="form-control form-control-sm ps-4"
+                                placeholder="Search module..."
+                                value={tableSearch}
+                                onChange={(e) => {
+                                    setTableSearch(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                                style={{ fontSize: '0.82rem' }}
+                            />
+                            {tableSearch && (
+                                <button
+                                    type="button"
+                                    className="btn btn-sm btn-link text-muted position-absolute end-0 top-50 translate-middle-y p-1 pe-2 text-decoration-none"
+                                    onClick={() => {
+                                        setTableSearch('');
+                                        setCurrentPage(1);
+                                    }}
+                                    title="Clear search"
+                                >
+                                    &times;
+                                </button>
+                            )}
+                        </div>
+
+                        {(tableSearch || statusFilter !== 'all') && (
+                            <button
+                                type="button"
+                                className="btn btn-sm btn-outline-secondary px-2 py-1"
+                                style={{ fontSize: '0.76rem' }}
+                                title="Reset filters"
+                                onClick={() => {
+                                    setTableSearch('');
+                                    setStatusFilter('all');
+                                    setCurrentPage(1);
+                                }}
+                            >
+                                <i className="fa fa-refresh me-1"></i>Reset
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -599,8 +744,8 @@ export default function Dashboard(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredRows.length > 0 ? (
-                                filteredRows.map((row) => (
+                            {paginatedRows.length > 0 ? (
+                                paginatedRows.map((row) => (
                                     <tr key={row.id}>
                                         <td className="ps-3 py-2-5">
                                             <div className="d-flex align-items-center gap-2">
@@ -699,6 +844,88 @@ export default function Dashboard(props) {
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Standardized Bottom Pagination Strip */}
+                <div className="ks-crud-header border-top border-bottom-0 py-2 d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <div className="text-muted" style={{ fontSize: '0.82rem' }}>
+                        Showing <strong>{filteredRows.length > 0 ? (currentPage - 1) * pageSize + 1 : 0}</strong> to{' '}
+                        <strong>{Math.min(currentPage * pageSize, filteredRows.length)}</strong> of{' '}
+                        <strong>{filteredRows.length}</strong> entries
+                    </div>
+
+                    <nav aria-label="Dashboard module pagination">
+                        <ul className="pagination pagination-sm mb-0">
+                            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                <button
+                                    type="button"
+                                    className="page-link"
+                                    onClick={() => setCurrentPage(1)}
+                                    disabled={currentPage === 1}
+                                    title="First Page"
+                                >
+                                    &laquo; First
+                                </button>
+                            </li>
+                            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                <button
+                                    type="button"
+                                    className="page-link"
+                                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                                    disabled={currentPage === 1}
+                                    title="Previous Page"
+                                >
+                                    &lsaquo; Prev
+                                </button>
+                            </li>
+                            {Array.from({ length: totalPages }, (_, i) => i + 1)
+                                .filter((p) => Math.abs(p - currentPage) <= 2 || p === 1 || p === totalPages)
+                                .map((pageNum, idx, arr) => {
+                                    const prev = arr[idx - 1];
+                                    const hasGap = prev && pageNum - prev > 1;
+                                    return (
+                                        <React.Fragment key={pageNum}>
+                                            {hasGap && (
+                                                <li className="page-item disabled">
+                                                    <span className="page-link">&hellip;</span>
+                                                </li>
+                                            )}
+                                            <li className={`page-item ${currentPage === pageNum ? 'active' : ''}`}>
+                                                <button
+                                                    type="button"
+                                                    className="page-link"
+                                                    onClick={() => setCurrentPage(pageNum)}
+                                                >
+                                                    {pageNum}
+                                                </button>
+                                            </li>
+                                        </React.Fragment>
+                                    );
+                                })}
+                            <li className={`page-item ${currentPage >= totalPages ? 'disabled' : ''}`}>
+                                <button
+                                    type="button"
+                                    className="page-link"
+                                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                                    disabled={currentPage >= totalPages}
+                                    title="Next Page"
+                                >
+                                    Next &rsaquo;
+                                </button>
+                            </li>
+                            <li className={`page-item ${currentPage >= totalPages ? 'disabled' : ''}`}>
+                                <button
+                                    type="button"
+                                    className="page-link"
+                                    onClick={() => setCurrentPage(totalPages)}
+                                    disabled={currentPage >= totalPages}
+                                    title="Last Page"
+                                >
+                                    Last &raquo;
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
 

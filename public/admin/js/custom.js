@@ -2295,8 +2295,8 @@ $('.datatable').DataTable({
         [10, 25, 50, 100, 200, "All"]
     ],
 
-    // iDisplayLength: 25
-    iDisplayLength: -1
+    // Default to 10 rows per page
+    iDisplayLength: 10
         //"scrollX": true,
 });
 

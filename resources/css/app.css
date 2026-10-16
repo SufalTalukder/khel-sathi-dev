@@ -270,7 +270,7 @@ body {
     box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
 }
 
-.ks-input:focus + .ks-input-icon,
+.ks-input:focus+.ks-input-icon,
 .ks-input-wrapper:focus-within .ks-input-icon {
     color: #0284c7;
 }
@@ -449,6 +449,7 @@ body {
         opacity: 0;
         transform: translateY(-8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -602,6 +603,7 @@ body {
         opacity: 0;
         transform: translateX(80px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -609,8 +611,13 @@ body {
 }
 
 @keyframes ksToastProgress {
-    from { width: 100%; }
-    to { width: 0%; }
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
 }
 
 /* ==========================================================================
@@ -621,7 +628,7 @@ body {
 /* Layout Base */
 .ks-admin-body {
     background-color: #f1f5f9;
-    background-image: 
+    background-image:
         radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.04) 0px, transparent 50%),
         radial-gradient(at 100% 0%, rgba(249, 115, 22, 0.03) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
@@ -757,6 +764,7 @@ body {
 .ks-sidebar-nav-scroll::-webkit-scrollbar {
     width: 4px;
 }
+
 .ks-sidebar-nav-scroll::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 4px;
@@ -846,6 +854,41 @@ body {
     color: #38bdf8;
     background: rgba(255, 255, 255, 0.05);
     padding-left: 0.85rem;
+}
+
+.ks-submenu-link.active {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(3, 105, 161, 0.55) 100%) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px -2px rgba(2, 132, 199, 0.35);
+    padding-left: 0.85rem;
+}
+
+.ks-submenu-link.active i {
+    color: #38bdf8 !important;
+    opacity: 1 !important;
+}
+
+.ks-active-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #38bdf8;
+    box-shadow: 0 0 8px #38bdf8;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.ks-nav-item-btn.has-active-child {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.07);
+    border-left: 3px solid #38bdf8;
+}
+
+.ks-nav-item-btn.has-active-child .ks-nav-icon-box {
+    background: rgba(56, 189, 248, 0.18);
+    color: #38bdf8;
 }
 
 /* Sidebar Footer Logout */
@@ -1025,6 +1068,36 @@ body {
     margin-bottom: 0;
 }
 
+/* ==========================================================================
+   Professional Clean Admin Dashboard System (Normal & Enterprise)
+   ========================================================================== */
+
+/* Page Header */
+.ks-dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.ks-dash-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+}
+
+.ks-dash-subtitle {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
 /* Professional Compact Metric Cards */
 .ks-metric-card {
     background: #ffffff;
@@ -1091,16 +1164,46 @@ body {
     text-overflow: ellipsis;
 }
 
-
 /* Subtle, Tasteful Icon Accents */
-.ks-icon-blue { background: #e0f2fe; color: #0284c7; }
-.ks-icon-indigo { background: #eef2ff; color: #4f46e5; }
-.ks-icon-purple { background: #f3e8ff; color: #7e22ce; }
-.ks-icon-amber { background: #fef3c7; color: #b45309; }
-.ks-icon-rose { background: #ffe4e6; color: #be123c; }
-.ks-icon-emerald { background: #dcfce7; color: #15803d; }
-.ks-icon-teal { background: #ccfbf1; color: #0f766e; }
-.ks-icon-orange { background: #ffedd5; color: #c2410c; }
+.ks-icon-blue {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.ks-icon-indigo {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.ks-icon-purple {
+    background: #f3e8ff;
+    color: #7e22ce;
+}
+
+.ks-icon-amber {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.ks-icon-rose {
+    background: #ffe4e6;
+    color: #be123c;
+}
+
+.ks-icon-emerald {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.ks-icon-teal {
+    background: #ccfbf1;
+    color: #0f766e;
+}
+
+.ks-icon-orange {
+    background: #ffedd5;
+    color: #c2410c;
+}
 
 /* Professional Data Table Card */
 .ks-data-card {
@@ -1253,24 +1356,467 @@ body {
     font-size: 0.82rem;
 }
 
+/* Government Action Buttons */
+.btn-gov-primary {
+    background: #0c2340;
+    color: #ffffff !important;
+    border: 1px solid #0c2340;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.btn-gov-primary:hover {
+    background: #1a365d;
+    border-color: #1a365d;
+    box-shadow: 0 2px 6px rgba(12, 35, 64, 0.2);
+}
+
+.btn-gov-outline {
+    background: #ffffff;
+    color: #0c2340 !important;
+    border: 1px solid #cbd5e1;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.btn-gov-outline:hover {
+    background: #f8fafc;
+    border-color: #0c2340;
+    color: #0c2340 !important;
+}
+
+.btn-gov-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #0c2340;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.btn-gov-action:hover {
+    background: #0c2340;
+    color: #ffffff;
+    border-color: #0c2340;
+    text-decoration: none;
+}
+
+.ks-num-zero {
+    color: #94a3b8;
+    font-weight: 400;
+    font-size: 0.82rem;
+}
+
+/* Global Official Government Footer */
+.ks-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1020;
+    background: #ffffff !important;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -2px 10px rgba(12, 35, 64, 0.04);
+    padding: 10px 20px;
+}
+
+/* Module Manager Custom Switch & Picker */
+.ks-switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+    vertical-align: middle;
+}
+
+.ks-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ks-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 22px;
+}
+
+.ks-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.ks-switch input:checked+.ks-slider {
+    background-color: #16a34a;
+}
+
+.ks-switch input:checked+.ks-slider:before {
+    transform: translateX(20px);
+}
+
+.ks-icon-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+    gap: 8px;
+    max-height: 160px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.ks-icon-picker-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    font-size: 1.15rem;
+    transition: all 0.15s ease;
+    padding: 0;
+}
+
+.ks-icon-picker-btn:hover {
+    border-color: #0284c7;
+    color: #0284c7;
+    background: #f0f9ff;
+    transform: translateY(-1px);
+}
+
+.ks-icon-picker-btn.active {
+    border-color: #0284c7;
+    background: #0284c7;
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
+}
+
+.ks-badge-menu-yes {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    border: 1px solid #bae6fd;
+}
+
+.ks-badge-menu-no {
+    background: #f1f5f9;
+    color: #64748b;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    border: 1px solid #e2e8f0;
+}
 
 /* Responsive Adjustments */
 @media (max-width: 991px) {
     .ks-modern-sidebar {
         transform: translateX(-270px);
     }
+
     .ks-modern-sidebar.open {
         transform: translateX(0);
     }
+
     .ks-modern-header {
         left: 0 !important;
     }
+
     .ks-admin-content {
         margin-left: 0 !important;
         padding: 82px 16px 72px;
     }
+
     .ks-footer {
         left: 0 !important;
     }
 }
 
+/* Modal Overlay & Dialog Styles for Inertia Admin */
+.ks-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: ksFadeIn 0.2s ease-out;
+}
+
+.ks-modal-card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: ksScaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ks-modal-card-sm {
+    max-width: 440px;
+}
+
+.ks-modal-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+}
+
+.ks-modal-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ks-modal-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.ks-modal-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.ks-modal-body {
+    padding: 22px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.ks-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* CRUD Table and Filter Enhancements */
+.ks-crud-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(12, 35, 64, 0.05);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.ks-crud-header {
+    padding: 12px 18px;
+    border-bottom: 1px solid #cbd5e1;
+    background: #f8fafc;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.ks-stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.ks-stat-chip.active {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.ks-stat-chip.inactive {
+    border-color: #fed7aa;
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.ks-stat-chip.info {
+    border-color: #bae6fd;
+    background: #f0f9ff;
+    color: #0369a1;
+}
+
+.ks-table-custom {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+.ks-table-custom thead th {
+    background: #0c2340 !important;
+    /* Deep Government Navy */
+    color: #ffffff !important;
+    font-size: 0.74rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    padding: 10px 14px !important;
+    border: 1px solid #1a365d !important;
+    white-space: nowrap;
+    vertical-align: middle !important;
+}
+
+.ks-table-custom tbody td {
+    padding: 9px 14px !important;
+    vertical-align: middle !important;
+    font-size: 0.82rem !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+    background: #ffffff;
+    transition: background-color 0.15s ease;
+}
+
+.ks-table-custom tbody tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+
+.ks-table-custom tbody tr:hover td {
+    background-color: #f0f7ff !important;
+}
+
+.ks-icon-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 1rem;
+    border: 1px solid #dbeafe;
+}
+
+.ks-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #475569;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.ks-action-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+.ks-action-btn.edit:hover {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #93c5fd;
+}
+
+.ks-action-btn.delete:hover {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+@keyframes ksFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ksScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
