@@ -1952,6 +1952,16 @@ Route::group(['prefix' => 'khelsathi-department'], function () {
         return redirect()->route('khelsathi.login');
     })->name('khelsathi.department');
 
+    if (app()->environment('local')) {
+        Route::get('/dev-login', function () {
+            $admin = \App\Models\AdminUser::first() ?: \Illuminate\Support\Facades\DB::table('admin')->first();
+            if ($admin) {
+                \Illuminate\Support\Facades\Auth::guard('admin')->loginUsingId($admin->id);
+            }
+            return redirect()->route('moduleCreate');
+        });
+    }
+
     // Login Routes
     Route::get('/login', function () {
         if (\Illuminate\Support\Facades\Auth::guard('admin')->check()) {

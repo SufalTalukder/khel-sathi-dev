@@ -302,7 +302,7 @@ export default function Login({ Code1 = 25, Code2 = 14, capchaCode = 39 }) {
             </main>
 
             {/* Official Footer */}
-            <div className="ks-footer" role="contentinfo">
+            <div className="ks-login-footer" role="contentinfo">
                 <div>
                     Copyright &copy; {new Date().getFullYear()} Department of Sports, Government of Uttar Pradesh / खेल विभाग, उत्तर प्रदेश सरकार. All Rights Reserved.
                 </div>

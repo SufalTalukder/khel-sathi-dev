@@ -9,6 +9,9 @@
     <title inertia>Official Web Portal of Department of Sports, Government of Uttar Pradesh, India</title>
 
     <!-- Theme & Portal Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="{{ asset('admin/css/bootstrap.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/css/font.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/css/all.css') }}" rel="stylesheet" />

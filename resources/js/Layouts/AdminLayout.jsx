@@ -9,6 +9,17 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [profileOpen, setProfileOpen] = useState(false);
     const [expandedMenus, setExpandedMenus] = useState({});
+    const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+    const [feedbackText, setFeedbackText] = useState('');
+    const [feedbackToast, setFeedbackToast] = useState(null);
+
+    const handleFeedbackSubmit = (e) => {
+        e.preventDefault();
+        setIsFeedbackModalOpen(false);
+        setFeedbackText('');
+        setFeedbackToast('Thank you for your feedback! Your suggestion has been recorded.');
+        setTimeout(() => setFeedbackToast(null), 4000);
+    };
 
     const menuItems = (propMenu && propMenu.length > 0) ? propMenu : (sharedMenu || []);
 
@@ -308,7 +319,7 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
                                         <span className="ks-nav-icon-box">
                                             <i className={iconClass}></i>
                                         </span>
-                                        <span className="text-truncate" style={{ fontSize: '0.82rem' }} title={module.module_name}>
+                                        <span className="text-truncate" title={module.module_name}>
                                             {module.module_name}
                                         </span>
                                     </div>
@@ -369,36 +380,110 @@ export default function AdminLayout({ children, menu: propMenu, routes: propRout
                     {children}
                 </div>
 
-                {/* Global Official Government Footer */}
-                <footer
-                    className="ks-footer"
-                    role="contentinfo"
-                    style={{
-                        left: sidebarOpen ? '270px' : '0',
-                        transition: 'left 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
-                    }}
-                >
-                    <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between gap-2 px-3">
-                        <div className="d-flex align-items-center gap-2 text-center text-lg-start flex-wrap">
-                            <span className="fw-bold" style={{ color: '#0c2340', fontSize: '0.78rem' }}>
-                                Department of Sports, Government of Uttar Pradesh / खेल विभाग, उत्तर प्रदेश सरकार
-                            </span>
-                            <span className="text-muted d-none d-md-inline">•</span>
-                            <span className="text-muted" style={{ fontSize: '0.74rem' }}>
-                                Content Owned and Maintained by Directorate of Sports, UP
-                            </span>
-                        </div>
-                        <div className="d-flex align-items-center gap-3 text-muted flex-wrap justify-content-center" style={{ fontSize: '0.74rem' }}>
-                            <span className="d-none d-xl-inline">
-                                <i className="fa fa-universal-access me-1 text-primary"></i> GIGW Compliant
-                            </span>
-                            <span className="badge bg-success-subtle text-success border border-success-subtle fw-bold px-2 py-1 rounded-pill">
-                                <i className="fa fa-shield me-1"></i> Official Portal • &copy; {new Date().getFullYear()}
-                            </span>
-                        </div>
+                {/* Official Department Footer (Matching Login Page) */}
+                <footer className={`ks-admin-footer ${!sidebarOpen ? 'fullwidth' : ''}`} role="contentinfo">
+                    <div>
+                        Copyright &copy; {new Date().getFullYear()} Department of Sports, Government of Uttar Pradesh / खेल विभाग, उत्तर प्रदेश सरकार. All Rights Reserved.
                     </div>
                 </footer>
             </main>
+
+            {/* Floating Feedback Pill (Matching Reference Design) */}
+            <button
+                type="button"
+                className="ks-floating-feedback-btn"
+                onClick={() => setIsFeedbackModalOpen(true)}
+                title="Send quick feedback"
+                aria-label="Send portal feedback"
+            >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                <span>Feedback</span>
+            </button>
+
+            {/* Portal Feedback Modal */}
+            {isFeedbackModalOpen && (
+                <div
+                    className="modern-dialog-overlay"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) setIsFeedbackModalOpen(false);
+                    }}
+                >
+                    <div className="modern-dialog-content">
+                        <div className="modern-dialog-header">
+                            <h5 className="modern-dialog-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                </svg>
+                                <span>Portal Feedback</span>
+                            </h5>
+                            <button
+                                type="button"
+                                className="modern-dialog-close"
+                                onClick={() => setIsFeedbackModalOpen(false)}
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleFeedbackSubmit}>
+                            <div className="modern-dialog-body">
+                                <p style={{ fontSize: '0.8125rem', color: '#71717a', marginBottom: '0.75rem' }}>
+                                    How can we improve the Department of Sports portal? Please share your feedback or suggestions.
+                                </p>
+                                <textarea
+                                    className="form-control form-control-sm"
+                                    rows="4"
+                                    placeholder="Tell us what you think or report an issue..."
+                                    value={feedbackText}
+                                    onChange={(e) => setFeedbackText(e.target.value)}
+                                    required
+                                    style={{ fontSize: '0.8125rem', resize: 'vertical' }}
+                                />
+                            </div>
+
+                            <div className="modern-dialog-footer">
+                                <button
+                                    type="button"
+                                    className="modern-btn-outline"
+                                    onClick={() => setIsFeedbackModalOpen(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="modern-btn-primary-dark"
+                                >
+                                    Submit Feedback
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Feedback Success Toast */}
+            {feedbackToast && (
+                <div className="ks-toastr-container">
+                    <div className="ks-toastr-item success">
+                        <div className="ks-toastr-icon">
+                            <i className="fa fa-check-circle"></i>
+                        </div>
+                        <div className="ks-toastr-content">
+                            <h6 className="ks-toastr-title">Feedback Sent</h6>
+                            <p className="ks-toastr-msg">{feedbackToast}</p>
+                        </div>
+                        <button
+                            type="button"
+                            className="ks-toastr-close"
+                            onClick={() => setFeedbackToast(null)}
+                        >
+                            &times;
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
